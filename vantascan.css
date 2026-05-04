@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+
+#Prospectus{
+    background-color: #bde0f1;
+}
+
+nav{
+    background-color: #bde0f1 ;
+}
+
+#vantascan{
+    display: inline-block;
+   
+}
+
+img{
+    width: 300px;
+    margin-right: 50px;
+    border-radius: 15px;
+    display: inline-block;
+}
+
+.info-produto{
+    display: inline-block;
+}
