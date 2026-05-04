@@ -1,0 +1,16 @@
+*{
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+}
+nav a{
+    background-color: lightblue;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 0%;
+    display: inline-block; 
+}
+nav a:hover{
+    background-color: cornflowerblue;
+    color: aliceblue;
+    font-size: 20px;
+}

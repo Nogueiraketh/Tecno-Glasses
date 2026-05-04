@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>NeoWatch X - Relógio de Última Geração</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg-dark: #05060a;
+      --bg-card: #0c0f18;
+      --accent: #4b8dff;
+      --accent-soft: rgba(75, 141, 255, 0.2);
+      --text-main: #f5f7ff;
+      --text-muted: #a3acc7;
+      --danger: #ff4b6a;
+      --safe: #4bffb0;
+      --font-main: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #15192b 0, #05060a 45%);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* ===== Layout geral ===== */
+    .page-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 3rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(75, 141, 255, 0.7);
+      font-size: 0.75rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* ===== Hero ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.4rem, 3.8vw, 3.4rem);
+      margin-bottom: 1rem;
+    }
+
+    .hero-highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-highlight span.badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--safe);
+      box-shadow: 0 0 10px rgba(75, 255, 176, 0.7);
+    }
+
+    .hero-text p {
+      color: var(--text-muted);
+      margin-bottom: 1.6rem;
+      max-width: 32rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4b8dff, #8f5bff);
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 0.8rem 1.8rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(75, 141, 255, 0.5);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(75, 141, 255, 0.65);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-radius: 999px;
+      padding: 0.8rem 1.8rem;
+      border: 1px solid var(--accent-soft);
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(12, 15, 24, 0.9);
+      border-color: var(--accent);
+      color: var(--text-main);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span strong {
+      color: var(--text-main);
+    }
+
+    /* ===== Card do relógio ===== */
+    .hero-watch-card {
+      background: radial-gradient(circle at top, #1b2137 0, #05060a 55%);
+      border-radius: 32px;
+      padding: 2.2rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 255, 0.16);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .watch-chip {
+      position: absolute;
+      inset: -80%;
+      opacity: 0.05;
+      background-image: radial-gradient(circle at 0 0, #4b8dff, transparent 55%),
+        radial-gradient(circle at 100% 0, #8f5bff, transparent 55%);
+      mix-blend-mode: screen;
+    }
+
+    .watch-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .watch-badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(12, 15, 24, 0.85);
+      border: 1px solid var(--accent-soft);
+    }
+
+    .watch-price {
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .watch-price strong {
+      display: block;
+      font-size: 1.4rem;
+      color: var(--text-main);
+    }
+
+    .watch-visual {
+      position: relative;
+      margin: 1rem 0 1.4rem;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .watch-circle {
+      width: 210px;
+      height: 210px;
+      border-radius: 50%;
+      border: 4px solid rgba(75, 141, 255, 0.5);
+      box-shadow:
+        0 0 60px rgba(75, 141, 255, 0.9),
+        inset 0 0 30px rgba(12, 15, 24, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle at 30% 0, #4b8dff, #05060a 65%);
+    }
+
+    .watch-inner {
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, #05060a 0, #111522 80%);
+      border: 2px solid rgba(148, 163, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      font-size: 0.85rem;
+    }
+
+    .watch-time-main {
+      font-size: 2.4rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+
+    .watch-time-zone {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .watch-battery {
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--safe);
+    }
+
+    .battery-bar {
+      width: 24px;
+      height: 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(148, 163, 255, 0.6);
+      padding: 1px;
+    }
+
+    .battery-level {
+      width: 90%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4bffb0, #cfffa9);
+    }
+
+    .watch-activity {
+      position: absolute;
+      bottom: 14px;
+      left: 18px;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .watch-heart {
+      position: absolute;
+      bottom: 14px;
+      right: 18px;
+      font-size: 0.75rem;
+      color: var(--danger);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .watch-heart span {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+
+    .watch-glow {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(75, 141, 255, 0.3), transparent 60%);
+      filter: blur(10px);
+      z-index: 0;
+    }
+
+    .watch-specs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      position: relative;
+      z-index: 1;
+      font-size: 0.8rem;
+    }
+
+    .spec-pill {
+      background: rgba(5, 6, 10, 0.9);
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      border: 1px solid rgba(148, 163, 255, 0.2);
+    }
+
+    .spec-title {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.15rem;
+    }
+
+    .spec-value {
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    /* ===== Seção de benefícios ===== */
+    .benefits {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .benefit-card {
+      background: rgba(5, 6, 10, 0.9);
+      border-radius: 16px;
+      padding: 1.4rem 1.2rem;
+      border: 1px solid rgba(148, 163, 255, 0.16);
+      font-size: 0.9rem;
+    }
+
+    .benefit-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .benefit-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .benefit-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ===== Responsividade ===== */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-watch-card {
+        order: -1;
+        margin-bottom: 1.5rem;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .page-wrapper {
+        padding: 1rem 1rem 2.5rem;
+      }
+
+      .hero-watch-card {
+        border-radius: 24px;
+        padding: 1.6rem 1.4rem;
+      }
+
+      .watch-circle {
+        width: 180px;
+        height: 180px;
+      }
+
+      .watch-inner {
+        width: 145px;
+        height: 145px;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Cabeçalho -->
+    <header>
+      <div class="logo">
+        <div class="logo-icon">NX</div>
+        <span>NeoWatch</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#produto">Produto</a></li>
+          <li><a href="#tecnologia">Tecnologia</a></li>
+          <li><a href="#saude">Saúde</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <main class="hero" id="produto">
+      <!-- Texto -->
+      <section class="hero-text">
+        <div class="hero-highlight">
+          <span class="badge-dot"></span>
+          Lançamento 2026 • Série NeoWatch X
+        </div>
+        <h1>Relógio inteligente de última geração para uma vida mais conectada.</h1>
+        <p>
+          O NeoWatch X combina sensores de saúde de nível clínico, tela OLED sempre ativa
+          e até 7 dias de bateria para acompanhar cada batimento, treino e notificação sem atrasos.
+        </p>
+
+        <div class="hero-cta">
+          <button class="btn-primary">Pré-reservar agora</button>
+          <button class="btn-secondary">Ver especificações completas</button>
+        </div>
+
+        <div class="hero-meta">
+          <span><strong>7 dias</strong> de bateria</span>
+          <span><strong>Resistência 5ATM</strong> para água</span>
+          <span><strong>Monitoramento</strong> de sono 24/7</span>
+        </div>
+      </section>
+
+      <!-- Card do Relógio / Visual Futurista -->
+      <aside class="hero-watch-card" aria-label="Visual do relógio inteligente">
+        <div class="watch-chip"></div>
+
+        <div class="watch-header">
+          <span class="watch-badge">NeoWatch X</span>
+          <div class="watch-price">
+            A partir de
+            <strong>R$ 2.499</strong>
+            <span>em até 12x sem juros</span>
+          </div>
+        </div>
+
+        <div class="watch-visual">
+          <div class="watch-glow"></div>
+          <div class="watch-circle">
+            <div class="watch-inner">
+              <div class="watch-time-zone">São Paulo</div>
+              <div class="watch-battery">
+                92%
+                <div class="battery-bar">
+                  <div class="battery-level"></div>
+                </div>
+              </div>
+
+              <div class="watch-time-main">10:24</div>
+
+              <div class="watch-activity">
+                Passos hoje: <strong>7.842</strong>
+              </div>
+              <div class="watch-heart">
+                74
+                <span>bpm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="watch-specs">
+          <div class="spec-pill">
+            <div class="spec-title">Tela</div>
+            <div class="spec-value">OLED 1.9" &bull; 1000 nits</div>
+          </div>
+          <div class="spec-pill">
+            <div class="spec-title">Conectividade</div>
+            <div class="spec-value">Bluetooth 5.4 • Wi-Fi</div>
+          </div>
+          <div class="spec-pill">
+            <div class="spec-title">Sensores</div>
+            <div class="spec-value">ECG, SpO₂, temperatura</div>
+          </div>
+          <div class="spec-pill">
+            <div class="spec-title">Assistente</div>
+            <div class="spec-value">Controle por voz integrado</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Benefícios principais -->
+    <section class="benefits" id="tecnologia">
+      <article class="benefit-card">
+        <div class="benefit-label">Performance</div>
+        <h3>Processador otimizado para IA em tempo real</h3>
+        <p>
+          O NeoChip X2 processa dados de movimento, sono e batimentos cardíacos em milissegundos,
+          gerando insights inteligentes sem consumir bateria excessiva.
+        </p>
+      </article>
+
+      <article class="benefit-card" id="saude">
+        <div class="benefit-label">Saúde 24/7</div>
+        <h3>Monitoramento avançado de saúde</h3>
+        <p>
+          Acompanhe frequência cardíaca, níveis de oxigênio no sangue e estresse
+          com alertas em tempo real e relatórios detalhados direto no app.
+        </p>
+      </article>
+
+      <article class="benefit-card">
+        <div class="benefit-label">Experiência</div>
+        <h3>Integração perfeita com seu ecossistema</h3>
+        <p>
+          Receba notificações inteligentes, atenda chamadas, controle música e
+          automatize sua casa conectada sem tirar o smartphone do bolso.
+        </p>
+      </article>
+    </section>
+  </div>
+</body>
+</html>
