@@ -14,3 +14,18 @@ nav a:hover{
     color: aliceblue;
     font-size: 20px;
 }
+
+.card{ /* foto dos oculos */
+    width: 100px;
+    margin: 20px;
+    padding: 60px;
+    border-radius: 10px;
+}
+
+.card img{
+    justify-content: flex-start;
+    width: 550px;
+    height: 550px;
+    border-radius: 10px;
+    object-fit: cover;
+}
