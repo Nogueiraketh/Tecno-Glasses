@@ -16,7 +16,7 @@ header{
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #bceaee;
+    background-color: rgb(203, 231, 245);;
     color: black;
 }
 
@@ -62,7 +62,7 @@ button:hover{
 
 footer{
     padding: 30px;
-    background-color: #bceaee;
+    background-color: rgb(203, 231, 245);;
     color: black;
 }
 
