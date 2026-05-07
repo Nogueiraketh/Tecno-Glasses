@@ -1,31 +1,106 @@
+
+
 *{
     box-sizing: border-box;
     margin: 0%;
     padding: 0%;
 }
-nav a{
-    background-color: lightblue;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    padding: 0%;
-    display: inline-block; 
-}
-nav a:hover{
-    background-color: cornflowerblue;
-    color: aliceblue;
-    font-size: 20px;
+body{
+    background-color:  aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.card{ /* foto dos oculos */
-    width: 100px;
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color:#bceaee;
+    color: black;
+}
+
+nav a{
+    color: black;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+/* 1 */
+#container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    border: solid 10px;
     margin: 20px;
-    padding: 60px;
-    border-radius: 10px;
+    border-radius: 20px;
+    
 }
 
 .card img{
-    justify-content: flex-start;
-    width: 550px;
-    height: 550px;
-    border-radius: 10px;
-    object-fit: cover;
+    
+    width: 30vw;
+    height: 50vh;
+}
+/* 1 fechamento */
+
+/* 2 */
+#container2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.cards{ 
+    border: solid 10px;
+    margin: 20px;
+    border-radius: 20px;
+    
+}
+.cards img{
+    border-radius: 20px;
+    width: 30vw;
+    height: 50vh;
+}
+/* 2  fechamento*/
+
+/* 3 */
+
+#container3{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardes{
+    border: solid 10px;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.cardes img{
+    width: 30vw;
+    height: 50vh;
+}
+
+/* 3 fechamento */
+
+
+#slogan{
+    font-size: 50px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+footer{
+    padding: 30px;
+    background-color: #bceaee;
+    color: black;
 }
