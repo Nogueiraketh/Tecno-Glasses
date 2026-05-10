@@ -27,11 +27,29 @@ header{
     color: black;
 }
 
-nav a{
-    color: black;
-    margin-left: 20px;
+nav{
+    display: flex;
+}
+
+.navegacao a{
     text-decoration: none;
 }
+.navegacao{
+    color: black;
+    margin-left: 20px;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.navegacao a:hover{
+    color: blue;
+    border-radius: 15px;
+    font-size: 20px;
+
+}
+
 
 main{
     padding: 40px;
